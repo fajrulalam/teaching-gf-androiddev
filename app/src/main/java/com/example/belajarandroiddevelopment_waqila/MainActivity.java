@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
 
     Button tombolNext;
 
+    Button helloButton;
+
+    Bundle bundle;
 
 
     @Override
@@ -41,6 +45,28 @@ public class MainActivity extends AppCompatActivity {
         tambahPizza = findViewById(R.id.tambahPizza);
         tambahTaco = findViewById(R.id.tambahTaco);
         tombolNext = findViewById(R.id.tombolNext);
+        helloButton = findViewById(R.id.helloButton);
+
+
+        //Menerima Bundle
+        Intent intent = getIntent();
+        bundle = intent.getBundleExtra("bundle");
+        if (bundle != null) {
+            int jumlahBurger_int = bundle.getInt("jumlahBurger_int");
+            int jumlahPizza_int = bundle.getInt("jumlahPizza_int");
+            int jumlahTaco_int = bundle.getInt("jumlahTaco_int");
+            int jumlahCoffee_int = bundle.getInt("jumlahCoffee_int");
+
+            Log.i("jumlahCoffee", jumlahCoffee_int+"");
+
+            jumlahBurger.setText("" + jumlahBurger_int);
+            jumlahPizza.setText("" + jumlahPizza_int);
+            jumlahTaco.setText("" + jumlahTaco_int);
+        }
+
+
+
+
 
 
         //Burger Operation
@@ -105,9 +131,17 @@ public class MainActivity extends AppCompatActivity {
                 int jumlahPizza_int = Integer.parseInt(jumlahPizza.getText().toString());
 
                 Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
-                intent.putExtra("jumlahTaco_int", jumlahTaco_int);
-                intent.putExtra("jumlahBurger_int", jumlahBurger_int);
-                intent.putExtra("jumlahPizza_int", jumlahPizza_int);
+
+
+
+                bundle.putInt("jumlahTaco_int", jumlahTaco_int);
+                bundle.putInt("jumlahBurger_int", jumlahBurger_int);
+                bundle.putInt("jumlahPizza_int", jumlahPizza_int);
+
+
+                intent.putExtra("bundle", bundle);
+
+
                 startActivity(intent);
             }
         });
